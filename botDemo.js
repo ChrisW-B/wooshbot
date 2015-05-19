@@ -10,16 +10,14 @@ var bot = require('fancy-groupme-bot').Bot,
 var TOKEN = "0e088af0a4b301327e9a16a8358f1ba3"; // your groupme api token
 var USER_TOKEN = "55JqxdWFl4G29PSPDcp6O7Zc2grs74giP3wDIIXz";
 var GROUP = "9674073"; // the room you want to join
-var URL = "https://groupme-wooshbot.herokuapp.com";
+var URL = "https://chris-groupmebot.azurewebsites.net";
 
 var WOOSH_NAME = "wesBot"; // the name of your bot
 var WOOSH_TAIL = "/woosh"; // the domain you're serving from, 
 var JINX_NAME = "jonBot"; // the name of your bot
-var JINX_URL = "https://groupme-wooshbot.herokuapp.com";
 var JINX_TAIL = "/jinx";
 
 var WHERE_NAME = "chrisGBot"; // the name of your bot
-var WHERE_URL = "https://groupme-wooshbot.herokuapp.com";
 var WHERE_TAIL = "/where";
 
 const WOOSH_CONFIG = {
