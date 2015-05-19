@@ -1,0 +1,23 @@
+{
+  "name": "I-Dont-Know-Bot",
+  "version": "0.0.1",
+  "description": "A sample groupme bot",
+  "main": "botDemo.js",
+  "scripts": {
+    "start": "node botDemo.js"
+  },
+  "dependencies": {
+    "fancy-groupme-bot": "git://github.com/cb-27/fancy-groupme-bot#master",
+    "groupme": "git://github.com/njoubert/node-groupme#master",
+    "request": "*",
+    "formidable": "*"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heroku/node-js-getting-started"
+  },
+  "license": "MIT"
+}
