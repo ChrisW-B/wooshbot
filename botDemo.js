@@ -10,15 +10,22 @@ var bot = require('fancy-groupme-bot').Bot,
 var TOKEN = "0e088af0a4b301327e9a16a8358f1ba3"; // your groupme api token
 var USER_TOKEN = "55JqxdWFl4G29PSPDcp6O7Zc2grs74giP3wDIIXz";
 var GROUP = "9674073"; // the room you want to join
-var URL = "https://chris-groupmebot.azurewebsites.net";
+var URL = "http://cse398-cwb216.cloudapp.net";
 
 var WOOSH_NAME = "wesBot"; // the name of your bot
 var WOOSH_TAIL = "/woosh"; // the domain you're serving from, 
+
 var JINX_NAME = "jonBot"; // the name of your bot
 var JINX_TAIL = "/jinx";
 
 var WHERE_NAME = "chrisGBot"; // the name of your bot
 var WHERE_TAIL = "/where";
+
+var BAND_NAME = "bandBot"; // the name of your bot
+var BAND_TAIL = "/band";
+
+var privatekeyLoc = "/home/cwb216/server_key.pem";
+var certificateLoc = "/home/cwb216/server_crt.pem";
 
 const WOOSH_CONFIG = {
 	token: TOKEN,
@@ -41,11 +48,19 @@ const WHERE_CONFIG = {
 	url: URL + WHERE_TAIL,
 	tail: WHERE_TAIL
 };
+const BAND_CONFIG = {
+	token: TOKEN,
+	group: GROUP,
+	name: BAND_NAME,
+	url: URL + BAND_TAIL,
+	tail: BAND_TAIL
+};
 
 //attempts to register bot
 var wooshBot = bot(WOOSH_CONFIG);
 var jinxBot = bot(JINX_CONFIG);
 var whereBot = bot(WHERE_CONFIG);
+var bandBot = bot(BAND_CONFIG);
 
 
 //receives event triggered by successful registration
@@ -58,6 +73,9 @@ jinxBot.on('botRegistered', function(b) {
 whereBot.on('botRegistered', function(b) {
 	console.log("where is registered");
 });
+bandBot.on('botRegistered', function(b) {
+	console.log("band is registered");
+});
 
 //Receives message event, but only proceeds if in correct group and not a bot
 //which prevents it from repeating other conversations, or itself
@@ -65,14 +83,12 @@ var stopBeingAnnoying;
 var lastRepliedTo = [];
 wooshBot.on('botMessage', function(b, message) {
 	if (message.group_id === GROUP && message.sender_type !== "bot") {
-		console.log("wooshbot:" + message.name + " said \"" + message.text + "\"");
 		console.log("looking for the woosh");
 		var randNum = Math.floor(Math.random() * 1000);
 		console.log("Seaworld number is " + randNum);
-		if (randNum == 500 || randNum == 750) {
+		if (randNum == 500 || randNum == 750 || randNum == 250) {
 			wooshBot.message("Welcome to Sea World, you little shit");
-		}
-		if (message.name.indexOf("Wes") > -1 || message.name.indexOf("wes") > -1) {
+		} else if (message.name.indexOf("Wes") > -1 || message.name.indexOf("wes") > -1 && randNum > 600) {
 			stopWooshing();
 			startWooshing(b, message.name);
 		}
@@ -81,21 +97,34 @@ wooshBot.on('botMessage', function(b, message) {
 
 whereBot.on('botMessage', function(b, message) {
 	if (message.group_id === GROUP && message.sender_type !== "bot") {
-		console.log("wherebot:" + message.name + " said \"" + message.text + "\"");
 		var randNum = Math.floor(Math.random() * 1000);
 		if ((message.text.indexOf("where") > -1 || message.text.indexOf("Where") > -1) && randNum > 850) {
 			setTimeout(
 				function() {
 					whereBot.message("Under there!");
-				}, 1500
-			);
+				}, 1500);
+		}
+	}
+});
+
+bandBot.on('botMessage', function(b, message) {
+	if (message.group_id === GROUP && message.sender_type !== "bot") {
+		var randNum = Math.floor(Math.random() * 1000);
+		var splitMessage = message.split(' ');
+		var randStart = Math.floor(Math.random() * splitMessage.length);
+		if (randStart + 2 < splitMessage.length && randNum > 850) {
+			var goodBandName = "\"" + splitMessage[randStart] + " " + splitMessage[randStart + 1] + " " + splitMessage[randStart + 2] + "\"would be a good band name!";
+			goodBandName = goodBandName.replace(/['!"#$%&\\'()\*+,\-\.\/:;<=>?@\[\\\]\^_`{|}~']/g, "");
+			setTimeout(
+				function() {
+					whereBot.message(goodBandName);
+				}, 1500);
 		}
 	}
 });
 
 jinxBot.on('botMessage', function(b, message) {
 	if (message.group_id === GROUP && message.sender_type !== "bot") {
-		console.log("jinxbot: " + message.name + " said \"" + message.text + "\"");
 		randNum = Math.floor(Math.random() * 1000);
 		console.log("jinxNum is " + randNum);
 		if (randNum >= 995) {
@@ -103,9 +132,8 @@ jinxBot.on('botMessage', function(b, message) {
 			setTimeout(
 				function() {
 					jinxBot.message("jinx");
-				}, 1500
-			);
-		} else if (randNum >= 975) { //hopefully a small chance of jinxing
+				}, 1500);
+		} else if (randNum >= 980) { //hopefully a small chance of jinxing
 			var splitMessage = message.text.split(" ");
 			setTimeout(
 				function() {
@@ -119,13 +147,11 @@ jinxBot.on('botMessage', function(b, message) {
 						}
 					}
 					jinxBot.message(newMessage);
-				}, 1000
-			);
+				}, 1000);
 			setTimeout(
 				function() {
 					jinxBot.message("jinx!");
-				}, 2100
-			);
+				}, 2100);
 
 		}
 	}
@@ -134,7 +160,7 @@ jinxBot.on('botMessage', function(b, message) {
 function stopWooshing() {
 	console.log("Cancelling last woosh");
 	clearTimeout(stopBeingAnnoying);
-};
+}
 
 var clearName;
 
@@ -153,17 +179,15 @@ function startWooshing(bot, name) {
 				clearTimeout(clearName);
 				lastRepliedTo[lastRepliedTo.length] = name;
 				updatedList = true;
-			}, 10000
-		);
+			}, 10000);
 	}
 	if (updatedList) {
 		clearName = setTimeout(
 			function() {
 				lastRepliedTo = [];
-			}, 1000000
-		);
+			}, 1000000);
 	}
-};
+}
 
 function recentlyRepliedTo(name) {
 	for (var i = 0; i < lastRepliedTo.length; i++) {
@@ -174,11 +198,15 @@ function recentlyRepliedTo(name) {
 	return false;
 }
 
-console.log("i am serving now");
-var port = process.env.PORT || 1337;
-var server = botServer({
-	port: port
-});
+
+var port = process.env.PORT || 80;
+console.log("i am serving on " + port);
+var options = {
+	port: port,
+	privateKey: privatekeyLoc,
+	certificate: certificateLoc
+};
+var server = botServer(options);
 wooshBot.serve(server);
 whereBot.serve(server);
 jinxBot.serve(server);
