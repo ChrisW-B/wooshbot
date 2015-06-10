@@ -10,8 +10,7 @@
     "fancy-groupme-bot": "git://github.com/cb-27/fancy-groupme-bot#master",
     "groupme": "git://github.com/njoubert/node-groupme#master",
     "request": "*",
-    "formidable": "*",
-    "fs": "*"
+    "formidable": "*"
   },
   "engines": {
     "node": "0.10.x"
