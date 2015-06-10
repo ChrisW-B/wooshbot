@@ -1,5 +1,5 @@
 {
-  "name": "I-Dont-Know-Bot",
+  "name": "wooshBot",
   "version": "0.0.1",
   "description": "A sample groupme bot",
   "main": "botDemo.js",
@@ -10,7 +10,8 @@
     "fancy-groupme-bot": "git://github.com/cb-27/fancy-groupme-bot#master",
     "groupme": "git://github.com/njoubert/node-groupme#master",
     "request": "*",
-    "formidable": "*"
+    "formidable": "*",
+    "fs": "*"
   },
   "engines": {
     "node": "0.10.x"
