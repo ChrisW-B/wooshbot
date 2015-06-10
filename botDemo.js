@@ -202,11 +202,12 @@ function recentlyRepliedTo(name) {
 var port = process.env.PORT || 80;
 console.log("i am serving on " + port);
 var options = {
-	port: port,
-	privateKey: privatekeyLoc,
-	certificate: certificateLoc
+	port: port
+	// privateKey: privatekeyLoc,
+	// certificate: certificateLoc
 };
 var server = botServer(options);
+bandBot.serve(server);
 wooshBot.serve(server);
 whereBot.serve(server);
 jinxBot.serve(server);
