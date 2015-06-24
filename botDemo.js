@@ -110,7 +110,7 @@ whereBot.on('botMessage', function(b, message) {
 bandBot.on('botMessage', function(b, message) {
 	if (message.group_id === GROUP && message.sender_type !== "bot") {
 		var randNum = Math.floor(Math.random() * 1000);
-		var splitMessage = message.split(' ');
+		var splitMessage = message.text.split(" ");
 		var randStart = Math.floor(Math.random() * splitMessage.length);
 		if (randStart + 2 < splitMessage.length && randNum > 850) {
 			var goodBandName = "\"" + splitMessage[randStart] + " " + splitMessage[randStart + 1] + " " + splitMessage[randStart + 2] + "\"would be a good band name!";
