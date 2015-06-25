@@ -111,13 +111,12 @@ bandBot.on('botMessage', function(b, message) {
 	if (message.group_id === GROUP && message.sender_type !== "bot") {
 		var randNum = Math.floor(Math.random() * 1000);
 		var splitMessage = message.text.split(" ");
-		var randStart = Math.floor(Math.random() * splitMessage.length);
-		if (randStart + 2 < splitMessage.length && randNum > 850) {
-			var goodBandName = "\"" + splitMessage[randStart] + " " + splitMessage[randStart + 1] + " " + splitMessage[randStart + 2] + "\"would be a good band name!";
+		if (splitMessage.length == 3 && randNum > 750) {
+			var goodBandName = message.text + "\" would be a good band name!";
 			goodBandName = goodBandName.replace(/['!"#$%&\\'()\*+,\-\.\/:;<=>?@\[\\\]\^_`{|}~']/g, "");
 			setTimeout(
 				function() {
-					whereBot.message(goodBandName);
+					bandBot.message(goodBandName);
 				}, 1500);
 		}
 	}
@@ -152,7 +151,6 @@ jinxBot.on('botMessage', function(b, message) {
 				function() {
 					jinxBot.message("jinx!");
 				}, 2100);
-
 		}
 	}
 });
