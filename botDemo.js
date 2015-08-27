@@ -88,7 +88,7 @@ wooshBot.on('botMessage', function(b, message) {
 		console.log("Seaworld number is " + randNum);
 		if (randNum == 500 || randNum == 750 || randNum == 250) {
 			wooshBot.message("Welcome to Sea World, you little shit");
-		} else if (message.name.indexOf("Wes") > -1 || message.name.indexOf("wes") > -1 && randNum > 600) {
+		} else if (message.name.indexOf("Wes") > -1 || message.name.indexOf("wes") > -1 && randNum > 800) {
 			stopWooshing();
 			startWooshing(b, message.name);
 		}
@@ -111,9 +111,9 @@ bandBot.on('botMessage', function(b, message) {
 	if (message.group_id === GROUP && message.sender_type !== "bot") {
 		var randNum = Math.floor(Math.random() * 1000);
 		var splitMessage = message.text.split(" ");
-		if (splitMessage.length == 3 && randNum > 750) {
+		if (splitMessage.length == 3 && randNum > 900) {
 			var goodBandName = message.text + "\" would be a good band name!";
-			goodBandName = goodBandName.replace(/['!"#$%&\\'()\*+,\-\.\/:;<=>?@\[\\\]\^_`{|}~']/g, "");
+			goodBandName = goodBandName.replace(/['"#$%&\\'()\*+,\-\.\/:;<=>@\[\\\]\^_`{|}~']/g, "");
 			setTimeout(
 				function() {
 					bandBot.message(goodBandName);
@@ -126,26 +126,28 @@ jinxBot.on('botMessage', function(b, message) {
 	if (message.group_id === GROUP && message.sender_type !== "bot") {
 		randNum = Math.floor(Math.random() * 1000);
 		console.log("jinxNum is " + randNum);
-		if (randNum >= 995) {
+		if (randNum >= 997) {
 			jinxBot.message(message.text);
 			setTimeout(
 				function() {
 					jinxBot.message("jinx");
 				}, 1500);
-		} else if (randNum >= 980) { //hopefully a small chance of jinxing
+		} else if (randNum >= 990) { //hopefully a small chance of jinxing
 			var splitMessage = message.text.split(" ");
 			setTimeout(
 				function() {
-					var newMessage = newsplitMessage[splitMessage.length - 1];
-					var i = splitMessage.length - 1;
-					while (newMessage !== " " && newMessage !== "") {
-						i--;
-						newMessage = newsplitMessage[i];
-						if (i < 0) {
-							break;
+					if (newsplitMessage) {
+						var newMessage = newsplitMessage[splitMessage.length - 1];
+						var i = splitMessage.length - 1;
+						while (newMessage !== " " && newMessage !== "") {
+							i--;
+							newMessage = newsplitMessage[i];
+							if (i < 0) {
+								break;
+							}
 						}
+						jinxBot.message(newMessage);
 					}
-					jinxBot.message(newMessage);
 				}, 1000);
 			setTimeout(
 				function() {
@@ -166,11 +168,11 @@ function startWooshing(bot, name) {
 	var randNum = Math.floor(Math.random() * 1000);
 	var updatedList = false;
 	console.log("Attempting to woosh");
-	if (randNum < 400 && !recentlyRepliedTo(name)) {
+	if (randNum < 250 && !recentlyRepliedTo(name)) {
 		bot.message("I'll have you know");
 		lastRepliedTo[lastRepliedTo.length] = name;
 		updatedList = true;
-	} else if (!recentlyRepliedTo(name) && randNum > 600) {
+	} else if (!recentlyRepliedTo(name) && randNum > 750) {
 		stopBeingAnnoying = setTimeout(
 			function() {
 				bot.message("woosh");
