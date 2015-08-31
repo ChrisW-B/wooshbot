@@ -130,13 +130,13 @@ jinxBot.on('botMessage', function(b, message) {
 			jinxBot.message(message.text);
 			setTimeout(
 				function() {
-					jinxBot.message("jinx");
+					jinxBot.message("jinx!");
 				}, 1500);
 		} else if (randNum >= 990) { //hopefully a small chance of jinxing
 			var splitMessage = message.text.split(" ");
 			setTimeout(
 				function() {
-					if (newsplitMessage) {
+					if (typeof newsplitMessage !== 'undefined') {
 						var newMessage = newsplitMessage[splitMessage.length - 1];
 						var i = splitMessage.length - 1;
 						while (newMessage !== " " && newMessage !== "") {
